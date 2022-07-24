@@ -56,3 +56,54 @@ std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, do
 
     return sorted_values;
 }
+
+
+void EnergyMat_Valence(const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val)
+{
+	std::map <double, double> en_tmp; // счетчик энергий
+
+	for (int i = 0; i < base.size(); i++)
+	{
+		for (int j = i; j < base.size(); j++) // проход по матрице(вар. 2)
+		{
+			if (!base[i][j]) { // если d = 0, e = 0
+				if (i == j) { // если на главной диагонали - добавляем один раз
+					energ[i][j] = 0;
+					en_tmp[0]++;
+				}
+				else {
+					energ[i][j] = 0;
+					energ[j][i] = 0;
+					en_tmp[0]++;
+					en_tmp[0]++;
+				}
+			}
+			else {
+				double tmp = base[i][j];
+				double d12 = base[i][j];
+				double d6;
+
+				for (int l = 1; l < 12; l++) { // возведение в 12 и 6 степень
+					if (l == 6) d6 = d12;
+					d12 *= tmp;
+				}
+				double result = 1 / d12 - 1 / d6; // расчет энергии
+
+				energ[i][j] = result; // занесение в матрицу энергий
+				energ[j][i] = result;
+
+				en_tmp[result]++; // занесение значения энергии в словарь для подсчета кол-ва
+				en_tmp[result]++; // встречается два раза
+			}
+		}
+	}
+
+
+
+	for (auto x : en_tmp) // расчет вероятности энергий
+	{
+		val[x.first] = x.second / (energ.size() * energ.size()); // сколько раз встречалась / максимальное кол-во
+	}
+
+
+}
