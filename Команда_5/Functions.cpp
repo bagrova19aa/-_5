@@ -10,39 +10,39 @@
 
 
 
-
-std::vector<Point> WriteFileToVector() {
+std::vector<Point> WriteFileToVector(int i) {
 
     std::ifstream fin;
 
-    std::string file_path;                                                        
+    std::string file_path;
     std::string trash;
 
     Point f;
+
     std::vector<Point> all_values;
 
-    for (int i = 1; i <= 303; i++) {                                            //Проход по всем файлам в директории и выбором нужных
-        if (i % 15 == 0) {
-            std::string v = std::to_string(i);
-            file_path = "./files/data- (" + v + ").txt";
 
-            fin.open(file_path);
-            if (fin.is_open()) {
+        std::string v = std::to_string(i);
+        file_path = "./files/data- (" + v + ").txt";
 
-                getline(fin, trash);
+        fin.open(file_path);
 
-                while (fin >> trash, fin >> f.area >> f.xm >> f.ym, fin >> trash, fin >> f.AR, getline(fin, trash)) {
-                    all_values.push_back(f);                                    //Добавление значений в вектор
-                }
-                fin.close();
+        if (fin.is_open()) {
+            getline(fin, trash);
+
+            while (fin >> f.number >> f.area >> f.xm >> f.ym, fin >> trash, fin >> f.AR, getline(fin, trash)) {
+                all_values.push_back(f);                                    //Добавление значений в вектор
             }
-            else {
-                std::cout << file_path << "\n";
-            }
+            fin.close();
         }
-    }
+        else {
+            std::cout << file_path << "\n";
+        }
+
+    
     return all_values;
 }
+
 
 std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, double min_dist) {
     double z = (max_dist + min_dist) / 2;                                                       //Вычисление значения, по которому идет отбор
