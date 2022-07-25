@@ -86,7 +86,7 @@ void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::
 					if (l == 6) d6 = d12;
 					d12 *= tmp;
 				}
-				double result = 1 / d12 - 1 / d6; // расчет энергии
+				double result = round((1 / d12 - 1 / d6) * 100) / 100; // расчет энергии
 
 				energ[i][j] = result; // занесение в матрицу энергий
 				energ[j][i] = result;
