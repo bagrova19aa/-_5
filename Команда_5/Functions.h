@@ -12,4 +12,4 @@ std::vector<Point> WriteFileToVector(int i);
 std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, double min_dist);
 
 //По ссылке изменяет(создаёт) матрицу энергий и словарь с вероятностями
-void EnergyMat_Valence(const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val);
+void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val);

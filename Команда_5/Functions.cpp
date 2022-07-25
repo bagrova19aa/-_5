@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <cmath>
 #include <algorithm>
 
 #include <Functions.h>
@@ -59,7 +60,7 @@ std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, do
 }
 
 
-void EnergyMat_Valence(const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val)
+void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val)
 {
 	std::map <double, double> en_tmp; // счетчик энергий
 
@@ -67,14 +68,11 @@ void EnergyMat_Valence(const std::vector <std::vector<double>>& base, std::vecto
 	{
 		for (int j = i; j < base.size(); j++) // проход по матрице(вар. 2)
 		{
-			if (!base[i][j]) { // если d = 0, e = 0
+			if (!(base[i][j] > 0 && base[i][j] < 2.5)) { // если d принадлежит(-бесконечность, 0] и [2.5, +бесконечность) , e = 0
 				if (i == j) { // если на главной диагонали - добавляем один раз
-					energ[i][j] = 0;
 					en_tmp[0]++;
 				}
 				else {
-					energ[i][j] = 0;
-					energ[j][i] = 0;
 					en_tmp[0]++;
 					en_tmp[0]++;
 				}
