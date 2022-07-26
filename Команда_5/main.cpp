@@ -41,9 +41,9 @@ int main() {
 
             //std::vector <std::vector<double>> energ(a.size(), std::vector<double>(a.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы расстояний, 
                                                                                                  // как только мы ее создадим, нужно будет изменить имя
-            std::map <double, double> en_val; //словарь для хранения вероятностей
+            std::map <double, double> en_prob; //словарь для хранения вероятностей
 
-            //EnergyMat_Valence(a, energ, en_val); //вызов функции, а - матрица расстояний, которой пока ещё нет
+            //EnergyMat_Probability(a, energ, en_prob); //вызов функции, а - матрица расстояний, которой пока ещё нет
 
             for (const auto& j : sorted_values) {
                 std::cout << j << '\n';
