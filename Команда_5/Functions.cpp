@@ -108,3 +108,30 @@ void EnergyMat_Valence(const std::vector <std::vector<double>>& base, std::vecto
 
 
 }
+void KirMat_Valence(const std::vector <std::vector<double>>& matr, std::vector <std::vector<double>>& kir, std::map <double, double>& val)
+{
+	std::map <double, double> val_tmp; // счётчик валентностей
+
+	for (int i = 0; i < matr.size(); i++)
+	{
+		int k = 0;
+		for (int j = 0; j < matr.size(); j++) // проходим по матрице связей
+		{
+			if (i != j)
+			{
+				if (matr[i][j]) {
+					kir[i][j] = -1;
+					k++;
+				}
+			}
+		}
+
+		kir[i][i] = k;
+		val_tmp[k]++;
+	}
+
+	for (auto x : val_tmp) // расчет вероятности валентностей
+	{
+		val[x.first] = x.second / kir.size(); // сколько раз встречалась/максимальное кол-во
+	}
+}
