@@ -13,3 +13,5 @@ std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, do
 
 //По ссылке изменяет(создаёт) матрицу энергий и словарь с вероятностями
 void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val);
+//Создает матрицу,ничего не возвращает,а изменяет уже существующие вектора
+void KirMat_Valence(const std::vector <std::vector<double>>& matr, std::vector <std::vector<double>>& kir, std::map <double, double>& val)
