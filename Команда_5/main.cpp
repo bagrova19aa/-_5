@@ -39,6 +39,11 @@ int main() {
 
             std::vector<Point> sorted_values = SortedVector(all_values, max_dist, min_dist);
 
+            //—оздаЄм основу дл€ матрицы  .,заполн€ем еЄ нул€ми, s.size (размер матрицы св€зей)
+            std::vector <std::vector<double>> kir(s.size(), std::vector<double>(s.size(), 0));
+            std::map <double, double> kir_val;//словарь веро€тности валентности 
+            KirMat_Valence(s, kir, kir_val);// s (матрица св€зей), kir матрица  ., kir_val словарь
+
             //std::vector <std::vector<double>> energ(a.size(), std::vector<double>(a.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы рассто€ний, 
                                                                                                  // как только мы ее создадим, нужно будет изменить им€
             std::map <double, double> en_prob; //словарь дл€ хранени€ веро€тностей
