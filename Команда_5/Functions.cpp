@@ -63,7 +63,7 @@ void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::
 
 	for (int i = 0; i < sorted_values.size(); i++) {
 		for (int j = i; j < sorted_values.size(); j++) {
-			double dis = sqrt(pow(sorted_values[j].xm - sorted_values[i].xm, 2) + (sorted_values[j].ym - sorted_values[i].ym, 2))//находим расстояние между точками
+			double dis = sqrt(pow(sorted_values[j].xm - sorted_values[i].xm, 2) + pow(sorted_values[j].ym - sorted_values[i].ym, 2));//находим расстояние между точками
 
 			//матрица-связей
 				if (dis > min_dist && < max_dist) {
