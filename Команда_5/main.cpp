@@ -40,20 +40,21 @@ int main() {
             std::vector<Point> sorted_values = SortedVector(all_values, max_dist, min_dist);
 
             //создаем основу для матриц связей и расстояний
-            std::vector <std::vector<double>> relationship(s.size(), std::vector<double>(s.size(), 0));
-            std::vector <std::vector<double>> distance(s.size(), std::vector<double>(s.size(), 0));
+            std::vector <std::vector<double>> relationship(sorted_values.size(), std::vector<double>(sorted_values.size(), 0));
+            std::vector <std::vector<double>> distance(sorted_values.size(), std::vector<double>(sorted_values.size(), 0));
 
+            Matrix_Relationship_Distance(sorted_values, relationship, distance, max_dist, min_dist); // вызов функции
 
             //Создаём основу для матрицы К.,заполняем её нулями, s.size (размер матрицы связей)
-            std::vector <std::vector<double>> kir(s.size(), std::vector<double>(s.size(), 0));
+            std::vector <std::vector<double>> kir(relationship.size(), std::vector<double>(relationship.size(), 0));
             std::map <double, double> kir_val;//словарь вероятности валентности 
-            KirMat_Valence(s, kir, kir_val);// s (матрица связей), kir матрица К., kir_val словарь
+            KirMat_Valence(relationship, kir, kir_val);// s (матрица связей), kir матрица К., kir_val словарь
 
-            //std::vector <std::vector<double>> energ(a.size(), std::vector<double>(a.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы расстояний, 
+            std::vector <std::vector<double>> energ(distance.size(), std::vector<double>(distance.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы расстояний, 
                                                                                                  // как только мы ее создадим, нужно будет изменить имя
             std::map <double, double> en_prob; //словарь для хранения вероятностей
 
-            //EnergyMat_Probability(a, energ, en_prob); //вызов функции, а - матрица расстояний, которой пока ещё нет
+            EnergyMat_Probability(distance, energ, en_prob); //вызов функции, а - матрица расстояний, которой пока ещё нет
 
             for (const auto& j : sorted_values) {
                 std::cout << j << '\n';
