@@ -11,6 +11,9 @@ std::vector<Point> WriteFileToVector(int i);
 //¬озвращает vector отсортированный по услови€м
 std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, double min_dist);
 
+//»змен€ет две существующие матрицы(рассто€ний и св€зей)
+void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::vector <std::vector<double>>& relationship, std::vector <std::vector<double>>& distance, double max_dist, double min_dist);
+
 //ѕо ссылке измен€ет(создаЄт) матрицу энергий и словарь с веро€тност€ми
 void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val);
 //—оздает матрицу,ничего не возвращает,а измен€ет уже существующие вектора

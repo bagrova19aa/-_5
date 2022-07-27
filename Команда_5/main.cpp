@@ -39,6 +39,11 @@ int main() {
 
             std::vector<Point> sorted_values = SortedVector(all_values, max_dist, min_dist);
 
+            //создаем основу для матриц связей и расстояний
+            std::vector <std::vector<double>> relationship(s.size(), std::vector<double>(s.size(), 0));
+            std::vector <std::vector<double>> distance(s.size(), std::vector<double>(s.size(), 0));
+
+
             //Создаём основу для матрицы К.,заполняем её нулями, s.size (размер матрицы связей)
             std::vector <std::vector<double>> kir(s.size(), std::vector<double>(s.size(), 0));
             std::map <double, double> kir_val;//словарь вероятности валентности 

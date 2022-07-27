@@ -59,6 +59,36 @@ std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, do
     return sorted_values;
 }
 
+void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::vector <std::vector<double>>& relationship, std::vector <std::vector<double>>& distance, double max_dist, double min_dist) {
+
+	for (int i = 0; i < sorted_values.size(); i++) {
+		for (int j = i; j < sorted_values.size(); j++) {
+			double dis = sqrt(pow(sorted_values[j].xm - sorted_values[i].xm, 2) + (sorted_values[j].ym - sorted_values[i].ym, 2))//находим расстояние между точками
+
+			//матрица-связей
+				if (dis > min_dist && < max_dist) {
+					relationship[i][j] = 1;
+					relationship[j][i] = 1;
+				}
+
+				else {
+					relationship[i][j] = 0;
+					relationship[j][i] = 0;
+				}
+
+			//матрица расстояний
+			if (relationship[i][j] == 1) {
+				distance[i][j] = dis;
+				distance[j][i] = dis;
+			}
+			else {
+				distance[i][j] = 0;
+				distance[j][i] = 0;
+			}
+		}
+	}
+
+}
 
 void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val)
 {
