@@ -12,7 +12,7 @@
 
 
 
-std::vector<Point> WriteFileToVector(int i) {
+std::vector<Point> WriteFileToVector(std::string i) {
 
     std::ifstream fin;
 
@@ -23,9 +23,7 @@ std::vector<Point> WriteFileToVector(int i) {
 
     std::vector<Point> all_values;
 
-
-        std::string v = std::to_string(i);
-        file_path = "./files/data- (" + v + ").txt";
+        file_path = "./files/data- (" + i + ").txt";
 
         fin.open(file_path);
 
@@ -66,7 +64,7 @@ void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::
 			double dis = sqrt(pow(sorted_values[j].xm - sorted_values[i].xm, 2) + pow(sorted_values[j].ym - sorted_values[i].ym, 2));//находим расстояние между точками
 
 			//матрица-связей
-				if (dis > min_dist && < max_dist) {
+				if (dis > min_dist && dis  < max_dist) {
 					relationship[i][j] = 1;
 					relationship[j][i] = 1;
 				}
@@ -163,3 +161,42 @@ void KirMat_Valence(const std::vector <std::vector<double>>& matr, std::vector <
 		val[x.first] = x.second / kir.size(); // сколько раз встречалась/максимальное кол-во
 	}
 }
+
+void WriteToXml(std::string i, const std::map <double, double>& valence_kir, const std::map <double, double>& valence_ener,
+	const std::vector <std::vector<double>>& matrix_kir, const std::vector <std::vector<double>>& matrix_ener){
+
+	std::ofstream XML_write;
+
+	XML_write.open("./xml_files/Matrices" + i + ".XML");
+	XML_write << "<File" + i + ">" << '\n';
+	XML_write << "\t<MatrixKir>" << '\n';
+	for (int i = 0; i < matrix_kir.size(); i++) {
+		for (int j = 0; j < matrix_kir.size(); j++) {
+			XML_write << matrix_kir[i][j] << ' ';
+		}
+		XML_write << '\n';
+	}
+	XML_write << "\t</MatrixKir>" << '\n';
+	XML_write << "\t<Valence>" << '\n';
+	for (auto j : valence_kir) {
+		XML_write << j.first << ' ' << j.second << '\n';
+	}
+	XML_write << "\t</Valence>" << '\n';
+	XML_write << "\t<MatrixEnergy>" << '\n';
+	for (int i = 0; i < matrix_ener.size(); i++) {
+		for (int j = 0; j < matrix_ener.size(); j++) {
+			XML_write << matrix_ener[i][j] << ' ';
+		}
+		XML_write << '\n';
+	}
+	XML_write << "\t</MatrixEnergy>" << '\n';
+
+	XML_write << "\t<ValenceEn>" << '\n';
+	for (auto j : valence_ener) {
+		XML_write << j.first << ' ' << j.second << '\n';
+	}
+	XML_write << "\t</ValenceEn>" << '\n';
+	XML_write << "</File" + i + ">" << '\n';
+	XML_write.close();
+}
+

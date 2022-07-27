@@ -9,7 +9,7 @@
 
 
 std::istream& operator >> (std::istream& in, Point& a) {                        //Перегрузка ввода (>>)
-	/*int num;*/
+
 	in >> a.number >> a.area >> a.xm >> a.ym >> a.AR;
 	return in;
 }
@@ -25,18 +25,22 @@ std::ostream& operator << (std::ostream& out, const Point& a) {                 
 
 int main() {
 
-    double max_dist, min_dist;                                                          //Ввод расстояний
-    std::cout << "Enter the max and min distance :\n";
-    std::cin >> max_dist >> min_dist;
+    double max_dist, min_dist;
+    do{                                                      //Ввод расстояний
+        std::cout << "Enter the max and min distance :\n";
+        std::cin >> max_dist >> min_dist;
+    } while (!(max_dist > min_dist && max_dist > 0 && min_dist >= 0));
 
-    int test;
+
+
 
 
 
     for (int i = 1; i <= 303; i++) {                              
         if (i % 15 == 0) {
-            std::vector<Point>  all_values = WriteFileToVector(i);
+            std::string v = std::to_string(i);
 
+            std::vector<Point>  all_values = WriteFileToVector(v);
             std::vector<Point> sorted_values = SortedVector(all_values, max_dist, min_dist);
 
             //создаем основу для матриц связей и расстояний
@@ -45,38 +49,56 @@ int main() {
 
             Matrix_Relationship_Distance(sorted_values, relationship, distance, max_dist, min_dist); // вызов функции
 
+            /*for (int i = 0; i < relationship.size(); i++) {
+                for (int j = 0; j < relationship.size(); j++) {
+                    std::cout << relationship[i][j] << ' ';
+                }
+                std::cout << '\n';
+            }
+            std::cout << "relationship" << '\n';
+            std::cin >> test;
+            for (int i = 0; i < distance.size(); i++) {
+                for (int j = 0; j < distance.size(); j++) {
+                    std::cout << distance[i][j] << ' ';
+                }
+                std::cout << '\n';
+            }
+            std::cout << "distance" << '\n';
+            std::cin >> test;
+            */
+
             //Создаём основу для матрицы К.,заполняем её нулями, s.size (размер матрицы связей)
             std::vector <std::vector<double>> kir(relationship.size(), std::vector<double>(relationship.size(), 0));
+
             std::map <double, double> kir_val;//словарь вероятности валентности 
             KirMat_Valence(relationship, kir, kir_val);// s (матрица связей), kir матрица К., kir_val словарь
+            /*for (int i = 0; i < kir.size(); i++) {
+                for (int j = 0; j < kir.size(); j++) {
+                    std::cout << kir[i][j] << ' ';
+                }
+                std::cout << '\n';
+            }
+            for (auto j : kir_val) {
+                std::cout << j.first << ' ' << j.second;
+            }
+            std::cout << '\n';
+            std::cout << "kir" << '\n';
 
+            std::cin >> test;*/
             std::vector <std::vector<double>> energ(distance.size(), std::vector<double>(distance.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы расстояний, 
                                                                                                  // как только мы ее создадим, нужно будет изменить имя
             std::map <double, double> en_prob; //словарь для хранения вероятностей
 
+
             EnergyMat_Probability(distance, energ, en_prob); //вызов функции, а - матрица расстояний, которой пока ещё нет
 
-            for (const auto& j : sorted_values) {
-                std::cout << j << '\n';
-            }
-            std::cin >> test;
+            WriteToXml(v, kir_val, en_prob, kir, energ);
+
+
+
+
         }
-
-
-
     }
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
