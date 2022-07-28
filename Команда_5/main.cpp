@@ -61,7 +61,7 @@ int main() {
             std::map <double, double> en_prob; //словарь для хранения вероятностей
 
 
-            EnergyMat_Probability(distance, energ, en_prob); //вызов функции, а - матрица расстояний, которой пока ещё нет
+            EnergyMat_Probability(distance, energ, en_prob, max_dist, min_dist); //вызов функции, а - матрица расстояний, которой пока ещё нет
 
             WriteToXml(v, kir_val, en_prob, kir, energ);
 

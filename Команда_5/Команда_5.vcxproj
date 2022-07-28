@@ -111,7 +111,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\dead_\source\repos\bagrova19aa\-_5\Команда_5</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\stask\OneDrive\Рабочий стол\uni\ПРАКТИКА\ПРАК2\Команда_5\Команда_5</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
