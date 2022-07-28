@@ -34,7 +34,7 @@ int main() {
 
 
 
-
+    int test;
 
     for (int i = 1; i <= 303; i++) {                              
         if (i % 15 == 0) {
@@ -48,21 +48,42 @@ int main() {
             std::vector <std::vector<double>> distance(sorted_values.size(), std::vector<double>(sorted_values.size(), 0));
 
             Matrix_Relationship_Distance(sorted_values, relationship, distance, max_dist, min_dist); // вызов функции
-
+       /*     for (int i = 0; i < sorted_values.size(); i++) {
+                for (int j = 0; j < sorted_values.size(); j++) {
+                    std::cout << relationship[i][j] << " ";
+                }
+                std::cout << "\n";
+            }
+            std::cout << "relationship" << "\n";
+            std::cin >> test;
+            for (int i = 0; i < sorted_values.size(); i++) {
+                for (int j = 0; j < sorted_values.size(); j++) {
+                    std::cout << distance[i][j] << " ";
+                }
+                std::cout << "\n";
+            }
+            std::cout << "distance" << "\n";
+            std::cin >> test;*/
 
             //Создаём основу для матрицы К.,заполняем её нулями, s.size (размер матрицы связей)
             std::vector <std::vector<double>> kir(relationship.size(), std::vector<double>(relationship.size(), 0));
 
             std::map <double, double> kir_val;//словарь вероятности валентности 
             KirMat_Valence(relationship, kir, kir_val);// s (матрица связей), kir матрица К., kir_val словарь
-
+         /*   for (int i = 0; i < sorted_values.size(); i++) {
+                for (int j = 0; j < sorted_values.size(); j++) {
+                    std::cout << kir[i][j] << " ";
+                }
+                std::cout << "\n";
+            }
+            std::cout << "kir" << "\n";
+            std::cin >> test;*/
             std::vector <std::vector<double>> energ(distance.size(), std::vector<double>(distance.size(), 0)); // вектор матрицы энергий, a.size() - размер матрицы расстояний, 
                                                                                                  // как только мы ее создадим, нужно будет изменить имя
             std::map <double, double> en_prob; //словарь для хранения вероятностей
 
 
-            EnergyMat_Probability(distance, energ, en_prob, max_dist, min_dist); //вызов функции, а - матрица расстояний, которой пока ещё нет
-
+           
             WriteToXml(v, kir_val, en_prob, kir, energ);
 
 
