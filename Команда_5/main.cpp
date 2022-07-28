@@ -65,7 +65,7 @@ int main() {
                                                                                                  // как только мы ее создадим, нужно будет изменить имя
             std::map <double, double> en_prob; //словарь для хранения вероятностей
 
-
+            EnergyMat_Probability(distance, energ, en_prob, max_dist, min_dist);
             
             WriteToXml(v, kir_val, en_prob, kir, energ);
 
