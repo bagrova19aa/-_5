@@ -45,26 +45,16 @@ std::vector<Point> WriteFileToVector(std::string i) {
 
 
 std::vector<Point> SortedVector(const std::vector<Point>& a, double max_dist, double min_dist) {
-    double z = (max_dist - min_dist);                                                       //Вычисление значения, по которому идет отбор
-    double result = z * z / 2;
+    double z = (max_dist + min_dist) / 2;                                                       //Вычисление значения, по которому идет отбор
+    double result = z * z / 8;
 
     std::vector<Point> sorted_values;
 
-	std::vector<Point> new_values;
-
-	//std::copy_if(a.begin(), a.end(), std::back_inserter(sorted_values), [&](const Point& a) {   //Отбор значений по условиям и копирование их в вектор
-	//	return !(a.area < result&& a.AR < 2.);
-	//	});
-
     std::copy_if(a.begin(), a.end(), std::back_inserter(sorted_values), [&](const Point& a) {   //Отбор значений по условиям и копирование их в вектор
-        return a.area > result ;
+        return !(a.area < result || a.AR < 2.);
         });
-	std::copy_if(sorted_values.begin(), sorted_values.end(), std::back_inserter(new_values), [&](const Point& a) {   //Отбор значений по условиям и копирование их в вектор
-		return a.AR > 2.;
-		});
 
-    return new_values;
-	//return sorted_values;
+    return sorted_values;
 }
 
 void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::vector <std::vector<double>>& relationship, std::vector <std::vector<double>>& distance, double max_dist, double min_dist) {
