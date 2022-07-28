@@ -177,7 +177,7 @@ void WriteToXml(std::string i, const std::map <double, double>& valence_kir, con
 
 	std::ofstream XML_write;
 
-	XML_write.open("./xml_files/Matrices" + i + ".XML");
+	XML_write.open("./xml_files/Matrix_data-(" + i + ").XML");
 	XML_write << "<File" + i + ">" << '\n';
 	XML_write << "\t<MatrixKir>" << '\n';
 	for (int i = 0; i < matrix_kir.size(); i++) {
