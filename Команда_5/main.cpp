@@ -23,6 +23,7 @@ std::ostream& operator << (std::ostream& out, const Point& a) {                 
 
 
 
+
 int main() {
 
     double max_dist, min_dist;
