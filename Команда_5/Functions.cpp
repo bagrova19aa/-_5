@@ -98,15 +98,17 @@ void Matrix_Relationship_Distance(const std::vector<Point>& sorted_values, std::
 
 }
 
-void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val)
+void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::vector <std::vector<double>>& energ, std::map <double, double>& val, double max_dist, double min_dist)
 {
 	std::map <double, double> en_tmp; // счетчик энергий
+
+	double delitel = (max_dist + min_dist) / 2.; // делитель
 
 	for (int i = 0; i < base.size(); i++)
 	{
 		for (int j = i; j < base.size(); j++) // проход по матрице(вар. 2)
 		{
-			if (!(base[i][j] > 0 && base[i][j] < 2.5) || base[i][j] == 1) { // если d принадлежит(-бесконечность, 0] и [2.5, +бесконечность) , e = 0
+			if (!base[i][j]) { // если расстояние равно 0 , e = 0
 				if (i == j) { // если на главной диагонали - добавляем один раз
 					en_tmp[0]++;
 				}
@@ -116,8 +118,9 @@ void EnergyMat_Probability (const std::vector <std::vector<double>>& base, std::
 				}
 			}
 			else {
-				double tmp = base[i][j];
-				double d12 = base[i][j];
+				double d = base[i][j] / delitel; // расчёт переменной d
+				double tmp = d;
+				double d12 = d;
 				double d6;
 
 				for (int l = 1; l < 12; l++) { // возведение в 12 и 6 степень
